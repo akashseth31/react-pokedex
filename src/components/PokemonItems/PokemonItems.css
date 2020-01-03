@@ -1,0 +1,32 @@
+.items {
+    width: 250px;
+    height: 250px;
+    margin: 10px;
+    background-color: #FFF;
+    background-repeat: no-repeat;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+    text-transform: capitalize;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .short-detail {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    left: 0;
+    font-size: 15px;
+    color: #fff;
+    padding: 10px 10px;
+}
+
+.items:hover .short-detail {
+  background: rgba(0, 0, 0, 0.7);
+}

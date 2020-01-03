@@ -1,0 +1,80 @@
+.overlay {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.9);
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.pokemon-details {
+    position: absolute;
+    width: 100%;
+    max-width: 650px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.pokemon-details > button {
+    outline: none;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #ffffff;
+    border-radius: 100%;
+    border: 3px solid #FF9441;
+    transform: translate(50%, -50%);
+    cursor: pointer;
+}
+
+.pokemon-details > button::before {
+    position: absolute;
+    width: 4px;
+    height: 18px;
+    left: 50%;
+    top: 50%;
+    background: #FF9441;
+    content: '';
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.pokemon-details > button::after {
+    position: absolute;
+    width: 4px;
+    height: 18px;
+    left: 50%;
+    top: 50%;
+    background: #FF9441;
+    content: '';
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.pokemon-details-inner {
+    border: 3px solid #FF9441;
+    border-radius: 10px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.pokemon-details-inner aside {
+    width: 50%;
+    min-height: 300px;
+    max-height: 500p;
+    overflow-y: auto;
+}
+
+.pokemon-details-inner aside.image {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.pokemon-details-inner aside.details {
+    background: green;
+}
+
