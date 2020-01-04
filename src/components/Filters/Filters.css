@@ -1,0 +1,49 @@
+.filters {
+    position: relative;
+}
+
+.filter-header {
+    border: 1px solid;
+    padding: 3px 7px;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+    text-align: left;
+    background-image: url(../../helpers/assets/caret-down.png);
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.filter-body {
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    border: 1px solid;
+    max-height: 300px;
+    overflow-y: auto;
+    transform: translateY(100%);
+    background: #ffffff;
+    padding: 15px;
+    z-index: 1;
+    box-shadow: 3px 3px 3px 3px #ccc;
+}
+
+.filter-item {
+    border: 1px solid #FF9441;
+    font-size: 14px;
+    padding: 3px 5px;
+    margin-right: 3px;
+    margin-top: 3px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+}
+
+.filter-item.selected {
+    background-color: #FF9441;
+    color: #ffffff;
+    font-weight: bold;
+}

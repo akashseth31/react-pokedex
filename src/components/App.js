@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { debounce } from 'lodash';
+import { debounce, flattenDeep, uniq, intersection, isEmpty } from 'lodash';
 import PokemonList from './PokemonList';
 import PokemonDetails from './PokemonDetails';
+import Header from './Header';
 import './App.css';
 import { GET_POKEDEX_DATA, LIMIT } from '../helpers/AppConstants';
 
@@ -13,6 +14,8 @@ class App extends Component {
       data: [],
       next: null,
       selectedPokemon: null,
+      filters: {},
+      appliedFilters: [],
     };
 
     // Binds our scroll event handler for infinite load
@@ -58,10 +61,12 @@ class App extends Component {
           details: await this.getPokemonDetail(url),
         }))
       );
+      const filters = this.extractTypeFilters([...data, ...detailedData]);
       this.setState({
         data: [...data, ...detailedData],
         next: response.next,
         isFetching: false,
+        filters,
       });
     } catch (err) {
       console.error(err);
@@ -85,6 +90,16 @@ class App extends Component {
   }
 
   /**
+   * Extract available type filters from the data
+   */
+  extractTypeFilters = (data) => {
+    return {
+      name: 'types',
+      values: uniq(flattenDeep(data.map(({ details }) => details.types.map(({ type }) => type.name)))),
+    };
+  }
+
+  /**
    * Gets details of pokemon from data and sets as selected pokemon
    */
   showDetails = (name) => {
@@ -97,15 +112,51 @@ class App extends Component {
    */
   closeDetails = () => this.setState({ selectedPokemon: null });
 
+  /**
+   * Toggle type filters on the data
+   */
+  toggleFilters = (filter) => {
+    const { appliedFilters } = this.state;
+    if (appliedFilters.includes(filter)) {
+      const appliedFiltersUpdated = [...appliedFilters];
+      appliedFiltersUpdated.splice(appliedFilters.indexOf(filter), 1);
+      this.setState({ appliedFilters: appliedFiltersUpdated });
+    } else {
+      this.setState({ appliedFilters: [...appliedFilters, filter] });
+    }
+  }
+
+  /**
+   * Get filtered data
+   */
+  getFilteredData = () => {
+    const { appliedFilters, data } = this.state;
+    if (!appliedFilters.length) {
+      return data;
+    }
+    return data.filter(({ details }) =>
+      !isEmpty(
+        intersection(appliedFilters, details.types.map(({ type }) => type.name))
+      )
+    )
+  }
+
   render() {
-    const { isFetching, data, next, selectedPokemon } = this.state;
+    const { isFetching, data, next, selectedPokemon, filters, appliedFilters } = this.state;
     if (isFetching && !data.length) {
       return <div>Loading...</div>
     }
+    const filteredData = this.getFilteredData();
     return (
       <div className="App">
+        <Header
+          filters={filters}
+          toggleFilters={this.toggleFilters}
+          appliedFilters={appliedFilters}
+          records={filteredData.length}
+        />
         <PokemonList
-          data={data}
+          data={filteredData}
           isFetching={isFetching}
           next={next}
           showDetails={this.showDetails}

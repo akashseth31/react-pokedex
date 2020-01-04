@@ -9,10 +9,10 @@ const PokemonList = ({ data, isFetching, next, showDetails }) => {
           data.map(pokemonData => <PokemonItems data={pokemonData} key={pokemonData.name} showDetails={showDetails} />)
         }
         {
-          isFetching && <div>Fetching More Details...</div>
+          isFetching && <div className="list-footer">Fetching more data...</div>
         }
         {
-          !next && <div>That's end of the list!</div>
+          !next && <div className="list-footer">That's end of the list!</div>
         }
     </section>
   )

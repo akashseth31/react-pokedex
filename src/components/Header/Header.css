@@ -1,0 +1,22 @@
+header {
+    padding: 20px 30px;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    background: #ffffff;
+    left: 0;
+    border-bottom: 3px solid #FF9441;
+}
+
+h2 {
+    color: #FF9441;
+    font-size: 30px;
+}
+
+aside.filters-container {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 400px;
+}
