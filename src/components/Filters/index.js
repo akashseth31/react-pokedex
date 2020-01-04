@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Filters.css';
 
-const FilterItem = ({ name, toggleFilters, selected }) => {
+export const FilterItem = ({ name, toggleFilters, selected }) => {
   return (
     <button className={`filter-item ${selected ? 'selected' : ''}`} onClick={() => toggleFilters(name)}>
       {name}

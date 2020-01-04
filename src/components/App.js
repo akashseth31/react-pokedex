@@ -47,7 +47,7 @@ class App extends Component {
   /**
    * Loads data from PokeAPI
    */
-  getPokedexData = async () => {
+  async getPokedexData() {
     try {
       this.setState({ isFetching: true });
       const { next, data } = this.state;
@@ -78,7 +78,7 @@ class App extends Component {
    * Fetch each pokemon details
    * This is required to show image and filters
    */
-  getPokemonDetail = async (url) => {
+  async getPokemonDetail(url) {
     try {
       const response = await fetch(url);
       const data = await response.json();
