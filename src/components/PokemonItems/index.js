@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './PokemonItems.css';
 import { NOT_FOUND } from '../../helpers/AppConstants';
 
@@ -21,5 +22,20 @@ const PokemonItems = ({ data, showDetails }) => {
   );
 };
 
+PokemonItems.propTypes = {
+  data: PropTypes.shape({
+    details: PropTypes.shape({
+      sprites: PropTypes.shape({
+        front_default: PropTypes.string,
+      }),
+      id: PropTypes.number,
+      abilities: PropTypes.arrayOf(PropTypes.any),
+      height: PropTypes.number,
+      types: PropTypes.arrayOf(PropTypes.any),
+    }),
+    name: PropTypes.string,
+  }).isRequired,
+  showDetails: PropTypes.func.isRequired,
+};
 
 export default PokemonItems;

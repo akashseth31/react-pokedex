@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import './Filters.css';
 
 export const FilterItem = ({ name, toggleFilters, selected }) => {
@@ -32,7 +33,17 @@ const Filters = ({ filters, toggleFilters, appliedFilters, records }) => {
       }
     </div>
   )
-}
+};
+
+Filters.propTypes = {
+  toggleFilters: PropTypes.func.isRequired,
+  filters: PropTypes.shape({
+    name: PropTypes.string,
+    values: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+  appliedFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
+  records: PropTypes.number.isRequired,
+};
 
 
 export default Filters;

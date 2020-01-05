@@ -16,12 +16,12 @@ class App extends Component {
       selectedPokemon: null,
       filters: {},
       appliedFilters: [],
+      error: false,
     };
 
     // Binds our scroll event handler for infinite load
     window.onscroll = debounce(() => {
       const {
-        getPokedexData,
         state: {
           next
         },
@@ -35,7 +35,7 @@ class App extends Component {
         window.innerHeight + document.documentElement.scrollTop
         === document.documentElement.offsetHeight
       ) {
-        getPokedexData();
+        this.getPokedexData();
       }
     }, 100);
   }
@@ -49,7 +49,7 @@ class App extends Component {
    */
   async getPokedexData() {
     try {
-      this.setState({ isFetching: true });
+      this.setState({ isFetching: true, error: false });
       const { next, data } = this.state;
       const endpoint = next ? next : `${GET_POKEDEX_DATA}?limit=${LIMIT}`;
       const result = await fetch(endpoint);
@@ -70,7 +70,7 @@ class App extends Component {
       });
     } catch (err) {
       console.error(err);
-      // To do: Notify error on view
+      this.setState({ error: true });
     }
   }
 
@@ -142,7 +142,12 @@ class App extends Component {
   }
 
   render() {
-    const { isFetching, data, next, selectedPokemon, filters, appliedFilters } = this.state;
+    const { isFetching, data, next, selectedPokemon, filters, appliedFilters, error } = this.state;
+
+    if (error) {
+      return <div className="error">Error occured while fetching the data. Please reload.</div>
+    }
+
     if (isFetching && !data.length) {
       return <div>Loading...</div>
     }

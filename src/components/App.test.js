@@ -21,7 +21,7 @@ describe('App', () => {
   it("renders correctly", () => {
     expect(wrapper).toMatchSnapshot();
   });
-  
+
   it('calls componentDidMount', () => {
     jest.spyOn(App.prototype, 'componentDidMount');
     wrapper = shallow(<App />);
@@ -103,4 +103,11 @@ describe('App', () => {
     expect(wrapper.state().selectedPokemon).toEqual(null);
   });
 
+  it('should show error message when error occures while fetching data', () => {
+    wrapper.setState({
+      error: true,
+    });
+    wrapper.update();
+    expect(wrapper.find('.error')).toHaveLength(1);
+  });
 });

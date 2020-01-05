@@ -5,7 +5,10 @@ import Filters from '../Filters';
 
 describe('Header', () => {
   const mockProps = {
-    filters: ['gross', 'poison'],
+    filters: {
+      name: 'types',
+      values: ['gross', 'poison'],
+    },
     toggleFilters: jest.fn(),
     appliedFilters: ['poison'],
     records: 100,
@@ -30,7 +33,7 @@ describe('Header', () => {
 
   it('should not render filters block when no filters', () => {
     wrapper.setProps({
-      filters: [],
+      filters: {},
     })
     expect(wrapper.find('aside')).toHaveLength(0);
     expect(wrapper.find(Filters)).toHaveLength(0);
