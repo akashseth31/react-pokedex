@@ -18,6 +18,7 @@ To run Unit tests.
 
 #### npm run test -- --coverage
 To get the test covarage.
+Run "npm test -- --coverage --watchAll" if above command doesn't show the coverage.
 
 #### Live application
 Visit this [link](https://akashseth31.github.io/react-pokedex/) to see the live application.
